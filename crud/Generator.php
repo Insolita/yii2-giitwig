@@ -171,7 +171,7 @@ class Generator extends \yii\gii\Generator
             }
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
                 $tfile=str_replace('.php','.twig',$file);
-                $files[] = new CodeFile("$viewPath/$file", $this->render("views/$tfile"));
+                $files[] = new CodeFile("$viewPath/$tfile", $this->render("views/$file"));
             }
         }
 
