@@ -478,7 +478,7 @@ class Generator extends \yii\gii\Generator
             if (is_subclass_of($class, 'yii\mongodb\ActiveRecord')) {
                 return "{'id' => model.{$pks[0]} }";
             } else {
-                return "{'id':model.{$pks[0]}'' }";
+                return "{'id':model.{$pks[0]}}";
             }
         } else {
             $params = [];
@@ -569,5 +569,39 @@ class Generator extends \yii\gii\Generator
 
             return $model->attributes();
         }
+    }
+
+    /**
+     * Generates a string depending on enableI18N property
+     *
+     * @param string $string the text be generated
+     * @param array $placeholders the placeholders to use by `Yii::t()`
+     * @return string
+     */
+    public function generateString($string = '', $placeholders = [])
+    {
+        $string = addslashes($string);
+        if ($this->enableI18N) {
+            // If there are placeholders, use them
+            if (!empty($placeholders)) {
+                $ph = ', ' . VarDumper::export($placeholders);
+            } else {
+                $ph = '';
+            }
+            $str = "Yii::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
+        } else {
+            // No I18N, replace placeholders by real words, if any
+            if (!empty($placeholders)) {
+                $phKeys = array_map(function($word) {
+                    return '{' . $word . '}';
+                }, array_keys($placeholders));
+                $phValues = array_values($placeholders);
+                $str = "'" . str_replace($phKeys, $phValues, $string) . "'";
+            } else {
+                // No placeholders, just the given string
+                $str = "'" . $string . "'";
+            }
+        }
+        return $str;
     }
 }

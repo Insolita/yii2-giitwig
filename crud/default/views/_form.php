@@ -18,16 +18,9 @@ if (empty($safeAttributes)) {
 {{ use('yii/widgets/ActiveForm') }}
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
-    {% if model.isNewRecord%}
-       {%set act=['create']%}
-    {%else%}
-       {%set act=['update']%}
-    {%endif%}
     {% set form = active_form_begin({
            'id' : '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
            'options' : {'class' : 'form-horizontal'},
-           'action' : act,
-
     }) %}
 
 <?php foreach ($generator->getColumnNames() as $attribute) {
