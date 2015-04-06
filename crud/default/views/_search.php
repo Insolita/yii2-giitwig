@@ -24,8 +24,8 @@ foreach ($generator->getColumnNames() as $attribute) {
 }
 ?>
     <div class="form-group">
-        {{html.submitButton( <?= $generator->generateString('Search') ?>,{'class':'btn btn-primary'}) |raw}}
-        {{html.resetButton( <?= $generator->generateString('Reset') ?>,{'class':'btn btn-default'}) |raw}}
+        {{html.submitButton( <?= $generator->generateTString('Search') ?>,{'class':'btn btn-primary'}) |raw}}
+        {{html.resetButton( <?= $generator->generateTString('Reset') ?>,{'class':'btn btn-default'}) |raw}}
     </div>
 
     {{ active_form_end() }}

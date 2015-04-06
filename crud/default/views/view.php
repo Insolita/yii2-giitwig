@@ -18,8 +18,8 @@ $urlParams = $generator->generateTwigUrlParams();
     <h1>{{this.title}}</h1>
 
     <p>
-        <a href="{{url('update', <?= $urlParams ?>)}}" class="btn btn-primary"><?= $generator->generateString('Update') ?></a>
-        <a href="{{url('delete', <?= $urlParams ?>)}}" class="btn btn-danger" data-method="post" data-confirm="<?= $generator->generateString('Are you sure you want to delete this item?') ?>"><?= $generator->generateString('Delete') ?></a>
+        <a href="{{url('update', <?= $urlParams ?>)}}" class="btn btn-primary"><?= $generator->generateTString('Update') ?></a>
+        <a href="{{url('delete', <?= $urlParams ?>)}}" class="btn btn-danger" data-method="post" data-confirm="<?= $generator->generateTString('Are you sure you want to delete this item?') ?>"><?= $generator->generateTString('Delete') ?></a>
     </p>
     {{
         detail_view_widget({
@@ -33,7 +33,7 @@ $urlParams = $generator->generateTwigUrlParams();
     } else {
         foreach ($generator->getTableSchema()->columns as $column) {
             $format = $generator->generateColumnFormat($column);
-            echo "            {'attribute':'" . $column->name ."'". ($format === 'text' ? "" : ",'format':'" . $format."'") . "},\n";
+            echo "            {'attribute':'" . $column->name ."'". ($format === 'text' ? '' : ",'format':'" . $format. "'")." },\n";
         }
     }
     ?>
