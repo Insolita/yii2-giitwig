@@ -41,7 +41,8 @@ Twig settings
                     'uses' => ['yii\bootstrap'],],
             ]
 
-],```
+]
+```
 
 Gii settings
 
