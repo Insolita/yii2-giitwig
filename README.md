@@ -1,6 +1,6 @@
 Gii Twig -Crud
 ==============
-Gii Twig Template Generator
+Gii Twig Template Generator (Port default yii2-gii templates) (Without i18N support yet)
 
 Installation
 ------------
@@ -25,7 +25,36 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+Twig settings
 
 ```php
-<?= \insolita\giitwig\AutoloadExample::widget(); ?>```
+'view'=>[
+            'class'=>'yii\web\View',
+            'renderers'=>[
+                'twig' => [
+                    'class' => 'yii\twig\ViewRenderer',
+                    'cachePath' => '@runtime/Twig/cache',
+                    'options' => [
+                        'auto_reload' => true,
+                    ],
+                    'globals' => ['html' => '\yii\helpers\Html','arhelp'=>'\yii\helpers\ArrayHelper','url'=>'yii\helpers\Url'],
+                    'uses' => ['yii\bootstrap'],],
+            ]
+
+],```
+
+Gii settings
+
+```php
+$config['modules']['gii'] = [
+        'class'=>'yii\gii\Module',
+        'generators' => [
+            'twigcrud' => [
+                'class' => 'insolita\giitwig\crud\Generator', // generator class
+                'templates' => [
+                    'twigCrud' => '@insolita/giitwig/crud/default',
+                ]
+            ]
+        ],
+    ];
+```
