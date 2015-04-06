@@ -76,7 +76,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             'query' => <?= $modelClass ?>::find(),
         ]);
 
-        return $this->render('index', [
+        return $this->render('index.twig', [
             'dataProvider' => $dataProvider,
         ]);
 <?php endif; ?>
@@ -89,7 +89,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionView(<?= $actionParams ?>)
     {
-        return $this->render('view', [
+        return $this->render('view.twig', [
             'model' => $this->findModel(<?= $actionParams ?>),
         ]);
     }
@@ -106,7 +106,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', <?= $urlParams ?>]);
         } else {
-            return $this->render('create', [
+            return $this->render('create.twig', [
                 'model' => $model,
             ]);
         }
@@ -125,7 +125,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', <?= $urlParams ?>]);
         } else {
-            return $this->render('update', [
+            return $this->render('update.twig', [
                 'model' => $model,
             ]);
         }

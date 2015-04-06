@@ -22,7 +22,7 @@ $nameAttribute = $generator->getNameAttribute();
 <?php endif; ?>
 
     <p>
-        <a href="{{ url('create') }}" class="btn btn-success">{{ <?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>}}</a>
+        <a href="{{ url('create') }}" class="btn btn-success"><?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?></a>
     </p>
 
 <?php if ($generator->indexWidgetType === 'grid'): ?>
