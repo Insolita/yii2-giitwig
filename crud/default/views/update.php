@@ -6,7 +6,7 @@ use yii\helpers\StringHelper;
 /* @var $this yii\web\View */
 /* @var $generator insolita\giitwig\crud\Generator */
 
-$urlParams = $generator->generateUrlParams();
+$urlParams = $generator->generateTwigUrlParams();
 
 ?>
 {{ set(this,'title','<?= $generator->generateString('Update {modelClass}:', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>'  ~ model.<?= $generator->getNameAttribute() ?>) }}

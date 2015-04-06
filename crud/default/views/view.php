@@ -6,7 +6,7 @@ use yii\helpers\StringHelper;
 /* @var $this yii\web\View */
 /* @var $generator insolita\giitwig\crud\Generator */
 
-$urlParams = $generator->generateUrlParams();
+$urlParams = $generator->generateTwigUrlParams();
 ?>
 {{ use('yii/widgets/DetailView') }}
 

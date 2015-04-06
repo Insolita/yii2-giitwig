@@ -446,6 +446,35 @@ class Generator extends \yii\gii\Generator
         $pks = $class::primaryKey();
         if (count($pks) === 1) {
             if (is_subclass_of($class, 'yii\mongodb\ActiveRecord')) {
+                return "'id' => (string)\$model->{$pks[0]}";
+            } else {
+                return "'id' => \$model->{$pks[0]}";
+            }
+        } else {
+            $params = [];
+            foreach ($pks as $pk) {
+                if (is_subclass_of($class, 'yii\mongodb\ActiveRecord')) {
+                    $params[] = "'$pk' => (string)\$model->$pk";
+                } else {
+                    $params[] = "'$pk' => \$model->$pk";
+                }
+            }
+
+            return implode(', ', $params);
+        }
+    }
+
+    /**
+     * Generates URL parameters for twig templates
+     * @return string
+     */
+    public function generateTwigUrlParams()
+    {
+        /* @var $class ActiveRecord */
+        $class = $this->modelClass;
+        $pks = $class::primaryKey();
+        if (count($pks) === 1) {
+            if (is_subclass_of($class, 'yii\mongodb\ActiveRecord')) {
                 return "{'id' => model.{$pks[0]} }";
             } else {
                 return "{'id':model.{$pks[0]}'' }";
