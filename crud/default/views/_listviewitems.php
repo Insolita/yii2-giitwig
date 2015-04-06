@@ -5,5 +5,5 @@
 $urlParams = $generator->generateTwigUrlParams();
 $nameAttribute = $generator->getNameAttribute();
 
-echo '{{ html.a(model.'.$nameAttribute.',["view", '.$urlParams.' ]) |raw}}';
+echo '{{ html.a(model.'.$nameAttribute.',url("view", '.$urlParams.')) |raw}}';
 
