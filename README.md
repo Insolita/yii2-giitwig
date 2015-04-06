@@ -59,3 +59,19 @@ $config['modules']['gii'] = [
         ],
     ];
 ```
+
+for customize - copy files from @insolita/giitwig/crud/default to any place, customize and add
+```php
+$config['modules']['gii'] = [
+        'class'=>'yii\gii\Module',
+        'generators' => [
+            'twigcrud' => [
+                'class' => 'insolita\giitwig\crud\Generator', // generator class
+                'templates' => [
+                    'twigCrud' => '@insolita/giitwig/crud/default',
+                    'twigcustomCrud' => '@your/path/to/crud/customized',
+                ]
+            ]
+        ],
+    ];
+```
