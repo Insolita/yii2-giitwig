@@ -11,26 +11,26 @@ $nameAttribute = $generator->getNameAttribute();
 
 ?>
 
-<?= $generator->indexWidgetType === 'grid' ? "{{ use('yii/grid/GridView') }}":"{{ use('yii/widgets/ListView') }}"?>;
+<?= $generator->indexWidgetType === 'grid' ? "{{ use('yii/grid/GridView') }}":"{{ use('yii/widgets/ListView') }}"?>
 {{ set(this,'title',<?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>) }}
 {{ set(this, 'params', { 'breadcrumbs' : { '' : this.title } }) }}
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
     <h1>{{this.title}}</h1>
 <?php if(!empty($generator->searchModelClass)): ?>
-    {{ this.render('_search.twig',{'model':searchModel}) }}
+   {# {{ this.render('_search.twig',{'model':searchModel})|raw }} #}
 <?php endif; ?>
 
     <p>
-        <a href="{{ url('create') }}" class="btn btn-success"><?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?></a>
+        <a href="{{ path(['create']) }}" class="btn btn-success"><?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?></a>
     </p>
 
 <?php if ($generator->indexWidgetType === 'grid'): ?>
     {{ grid_view_widget({
     'dataProvider': dataProvider,
-    <?= !empty($generator->searchModelClass) ?"'filterModel': searchModel":""?>
+    <?= !empty($generator->searchModelClass) ?"'filterModel': searchModel,":""?>
     'columns': [
-         {'class': 'yii/grid/SerialColumn'},
+         {'class': 'yii\\grid\\SerialColumn'},
     <?php
     $count = 0;
     if (($tableSchema = $generator->getTableSchema()) === false) {
@@ -47,12 +47,12 @@ $nameAttribute = $generator->getNameAttribute();
             if (++$count < 6) {
                 echo "   {'attribute' : '" . $column->name . "' ".($format === 'text' ? "" : ",'format':'".$format."'")."},\n";
             } else {
-                echo "   {#'attribute' : '" . $column->name . "' ".($format === 'text' ? "" : ",'format':'".$format."'")."#},\n";
+                echo "   {'attribute' : '" . $column->name . "' ".($format === 'text' ? "" : ",'format':'".$format."'")."},\n";
             }
         }
     }
     ?>
-        {'class': 'yii/grid/ActionColumn'},
+        {'class': 'yii\\grid\\ActionColumn'},
       ],
       })
     }}

@@ -225,16 +225,16 @@ class Generator extends \yii\gii\Generator
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
-                return "\$form->field(\$model, '$attribute')->passwordInput()";
+                return " form.field(model, '$attribute').passwordInput()";
             } else {
-                return "\$form->field(\$model, '$attribute')";
+                return " form.field(model, '$attribute')";
             }
         }
         $column = $tableSchema->columns[$attribute];
         if ($column->phpType === 'boolean') {
-            return "\$form->field(\$model, '$attribute')->checkbox()";
+            return " form.field(model, \"$attribute\").checkbox()";
         } elseif ($column->type === 'text') {
-            return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
+            return " form.field(model, \"$attribute\").textarea({\"rows\":6})";
         } else {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
                 $input = 'passwordInput';
@@ -246,12 +246,12 @@ class Generator extends \yii\gii\Generator
                 foreach ($column->enumValues as $enumValue) {
                     $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
                 }
-                return "\$form->field(\$model, '$attribute')->dropDownList("
-                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
+                return " form.field(model,\"$attribute\").dropDownList({}, {\"prompt\":\"\"})";
             } elseif ($column->phpType !== 'string' || $column->size === null) {
-                return "\$form->field(\$model, '$attribute')->$input()";
+                return " form.field(model, \"$attribute\").$input()";
+
             } else {
-                return "\$form->field(\$model, '$attribute')->$input(['maxlength' => true])";
+                return " form.field(model, \"$attribute\").$input({\"maxlength\":true})";
             }
         }
     }
@@ -265,13 +265,14 @@ class Generator extends \yii\gii\Generator
     {
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false) {
-            return "\$form->field(\$model, '$attribute')";
+            return " form.field(model, '$attribute')";
         }
         $column = $tableSchema->columns[$attribute];
         if ($column->phpType === 'boolean') {
-            return "\$form->field(\$model, '$attribute')->checkbox()";
+            return " form.field(model, '$attribute').checkbox()";
+
         } else {
-            return "\$form->field(\$model, '$attribute')";
+            return " form.field(model, '$attribute').textInput()";
         }
     }
 

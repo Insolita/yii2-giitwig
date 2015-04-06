@@ -18,21 +18,28 @@ if (empty($safeAttributes)) {
 {{ use('yii/widgets/ActiveForm') }}
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
+    {% if model.isNewRecord%}
+       {%set act=['create']%}
+    {%else%}
+       {%set act=['update']%}
+    {%endif%}
     {% set form = active_form_begin({
            'id' : '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
            'options' : {'class' : 'form-horizontal'},
+           'action' : act,
+
     }) %}
 
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
-        echo "{{ form.field(model, '" . $generator->generateActiveField($attribute) . "') | raw }} \n\n";
+        echo "{{ " . $generator->generateActiveField($attribute) . "| raw }} \n\n";
     }
 } ?>
     <div class="form-group">
         {% if model.isNewRecord %}
-           {{html.submitButton( <?= $generator->generateString('Create') ?>,{'class':'btn btn-success'})}}
+           {{html.submitButton( <?= $generator->generateString('Create') ?>,{'class':'btn btn-success'})|raw}}
         {% else %}
-           {{html.submitButton( <?= $generator->generateString('Update') ?>,{'class':'btn btn-primary'})}}
+           {{html.submitButton( <?= $generator->generateString('Update') ?>,{'class':'btn btn-primary'})|raw}}
         {% endif %}
     </div>
 

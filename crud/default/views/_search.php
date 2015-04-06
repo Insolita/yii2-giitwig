@@ -14,18 +14,18 @@ use yii\helpers\StringHelper;
     {% set form = active_form_begin({
        'id' : '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-searchform',
        'options' : {'class' : 'form-horizontal'},
-       'action ' : 'index',
+       'action' : ['index'],
        'method' : 'get',
     }) %}
 
 <?php
 foreach ($generator->getColumnNames() as $attribute) {
-    echo "{{ form.field(model, '" . $generator->generateActiveSearchField($attribute) . "') | raw }} \n\n";
+    echo "{{ ".$generator->generateActiveSearchField($attribute) ."| raw }} \n\n";
 }
 ?>
     <div class="form-group">
-        {{html.submitButton( <?= $generator->generateString('Search') ?>,{'class':'btn btn-primary'})}}
-        {{html.resetButton( <?= $generator->generateString('Reset') ?>,{'class':'btn btn-default'})}}
+        {{html.submitButton( <?= $generator->generateString('Search') ?>,{'class':'btn btn-primary'}) |raw}}
+        {{html.resetButton( <?= $generator->generateString('Reset') ?>,{'class':'btn btn-default'}) |raw}}
     </div>
 
     {{ active_form_end() }}
